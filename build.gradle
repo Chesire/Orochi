@@ -1,0 +1,45 @@
+buildscript {
+    ext.jacoco_version = '0.8.7'
+    ext.kotlin_version = "1.5.0"
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:4.2.1"
+        classpath "org.jacoco:org.jacoco.core:$jacoco_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+plugins {
+    id "io.gitlab.arturbosch.detekt" version "1.14.2"
+    id "org.jlleitschuh.gradle.ktlint" version "10.0.0"
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+subprojects {
+    apply plugin: "org.jlleitschuh.gradle.ktlint"
+    apply from: "${project.rootDir}/jacoco.gradle"
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+task detektCheck(type: io.gitlab.arturbosch.detekt.Detekt) {
+    parallel = true
+    source = files(projectDir)
+    include "**/*.kt"
+    include "**/*.kts"
+    exclude "**/resources/**"
+    exclude "**/build/**"
+    config.setFrom(files("$rootDir/detekt.yml"))
+    buildUponDefaultConfig = false
+}
