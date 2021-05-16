@@ -5,7 +5,6 @@ import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
 
 // Windows: Can be found at localhost:8080
-
 fun main(args: Array<String>) {
     embeddedServer(
         Netty,

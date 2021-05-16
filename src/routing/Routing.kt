@@ -6,6 +6,7 @@ import io.ktor.response.respondText
 import io.ktor.routing.get
 import io.ktor.routing.routing
 
+@Suppress("UnusedPrivateMember")
 fun Application.configureRouting(testing: Boolean = false) {
     routing {
         get("/") {

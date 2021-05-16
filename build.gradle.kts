@@ -1,3 +1,5 @@
+import io.gitlab.arturbosch.detekt.Detekt
+
 val logbackVersion: String by project
 val ktorVersion: String by project
 val kotlinVersion: String by project
@@ -5,6 +7,9 @@ val kotlinVersion: String by project
 plugins {
     application
     kotlin("jvm") version "1.4.32"
+
+    id("io.gitlab.arturbosch.detekt") version "1.14.2"
+    id("org.jlleitschuh.gradle.ktlint") version "10.0.0"
 }
 
 group = "com.chesire"
@@ -17,6 +22,7 @@ application {
 repositories {
     mavenLocal()
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
@@ -33,3 +39,17 @@ kotlin.sourceSets["test"].kotlin.srcDirs("test")
 
 sourceSets["main"].resources.srcDirs("resources")
 sourceSets["test"].resources.srcDirs("testresources")
+
+tasks {
+    @Suppress("UnusedPrivateMember")
+    val detektCheck by registering(Detekt::class) {
+        parallel = true
+        setSource(files(projectDir))
+        include("**/*.kt")
+        include("**/*.kts")
+        exclude("**/resources/**")
+        exclude("**/build/**")
+        config.setFrom(files("$rootDir/detekt.yml"))
+        buildUponDefaultConfig = false
+    }
+}
