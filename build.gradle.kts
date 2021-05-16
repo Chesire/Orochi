@@ -1,6 +1,6 @@
-val ktor_version: String by project
-val kotlin_version: String by project
-val logback_version: String by project
+val logbackVersion: String by project
+val ktorVersion: String by project
+val kotlinVersion: String by project
 
 plugins {
     application
@@ -8,19 +8,28 @@ plugins {
 }
 
 group = "com.chesire"
-version = "0.0.1"
+version = "0.0.1-SNAPSHOT"
+
 application {
-    mainClass.set("com.chesire.ApplicationKt")
+    mainClassName = "io.ktor.server.netty.EngineMain"
 }
 
 repositories {
+    mavenLocal()
     mavenCentral()
 }
 
 dependencies {
-    implementation("ch.qos.logback:logback-classic:$logback_version")
-    implementation("io.ktor:ktor-server-core:$ktor_version")
-    implementation("io.ktor:ktor-server-netty:$ktor_version")
+    implementation("ch.qos.logback:logback-classic:$logbackVersion")
+    implementation("io.ktor:ktor-server-core:$ktorVersion")
+    implementation("io.ktor:ktor-server-netty:$ktorVersion")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
 
-    testImplementation("io.ktor:ktor-server-tests:$ktor_version")
+    testImplementation("io.ktor:ktor-server-tests:$ktorVersion")
 }
+
+kotlin.sourceSets["main"].kotlin.srcDirs("src")
+kotlin.sourceSets["test"].kotlin.srcDirs("test")
+
+sourceSets["main"].resources.srcDirs("resources")
+sourceSets["test"].resources.srcDirs("testresources")
