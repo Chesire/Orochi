@@ -6,7 +6,7 @@ val kotlinVersion: String by project
 
 plugins {
     application
-    kotlin("jvm") version "1.5.30"
+    kotlin("jvm") version "1.5.31"
 
     id("io.gitlab.arturbosch.detekt") version "1.18.0"
     id("org.jlleitschuh.gradle.ktlint") version "10.2.0"
