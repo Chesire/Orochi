@@ -1,20 +1,21 @@
-package com.chesire.routing.status
+package com.chesire.orochi
 
-import com.chesire.routing.configureRouting
+import com.chesire.orochi.plugins.routing.configureRouting
 import io.ktor.http.HttpMethod
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.testing.handleRequest
 import io.ktor.server.testing.withTestApplication
+import kotlin.test.Test
 import kotlin.test.assertEquals
-import org.junit.Test
 
-class IntegrationStatusTest {
+class ApplicationTest {
+
     @Test
-    fun testStatus() {
+    fun testRoot() {
         withTestApplication({ configureRouting() }) {
-            handleRequest(HttpMethod.Get, "/status/").apply {
+            handleRequest(HttpMethod.Get, "/").apply {
                 assertEquals(HttpStatusCode.OK, response.status())
-                assertEquals("Status ok!", response.content)
+                assertEquals("Hello World!", response.content)
             }
         }
     }
