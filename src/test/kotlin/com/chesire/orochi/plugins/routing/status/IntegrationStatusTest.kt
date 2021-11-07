@@ -9,7 +9,7 @@ import kotlin.test.assertEquals
 import org.junit.Test
 
 class IntegrationStatusTest {
-    
+
     @Test
     fun testStatus() {
         withTestApplication({ configureRouting() }) {
