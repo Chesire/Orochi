@@ -1,4 +1,4 @@
-package com.chesire.orochi.plugins.routing.status
+package com.chesire.orochi.routes.status
 
 import com.chesire.orochi.plugins.routing.configureRouting
 import io.ktor.http.HttpMethod

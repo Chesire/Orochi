@@ -1,4 +1,4 @@
-package com.chesire.orochi.kitsu.model
+package com.chesire.orochi.routes.kitsu.model
 
 import kotlinx.serialization.Serializable
 

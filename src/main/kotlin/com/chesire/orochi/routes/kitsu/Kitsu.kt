@@ -1,6 +1,6 @@
-package com.chesire.orochi.plugins.routing.kitsu
+package com.chesire.orochi.routes.kitsu
 
-import com.chesire.orochi.kitsu.model.KitsuInputAuthDto
+import com.chesire.orochi.routes.kitsu.model.KitsuInputAuthDto
 import io.ktor.application.call
 import io.ktor.http.HttpStatusCode
 import io.ktor.request.receive
