@@ -13,10 +13,8 @@ data class KitsuAuthRequestDto(
     val password: String
 )
 
-// TODO: Use a sealed class for responses?
-
 @Serializable
-data class KitsuAuthResponseDto(
+data class KitsuAuthSuccessDto(
     @SerialName("access_token")
     val accessToken: String,
     @SerialName("token_type")
@@ -32,7 +30,7 @@ data class KitsuAuthResponseDto(
 )
 
 @Serializable
-data class KitsuAuthFailureResponseDto(
+data class KitsuAuthFailureDto(
     @SerialName("error")
     val error: String,
     @SerialName("error_description")
