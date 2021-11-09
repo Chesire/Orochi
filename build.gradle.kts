@@ -1,3 +1,4 @@
+import Build_gradle.Version.Koin
 import Build_gradle.Version.Kotlin
 import Build_gradle.Version.KotlinSerialization
 import Build_gradle.Version.Ktor
@@ -6,10 +7,11 @@ import io.gitlab.arturbosch.detekt.Detekt
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 object Version {
-    const val Logback = "1.2.6"
-    const val Ktor = "1.6.5"
+    const val Koin = "3.1.3"
     const val Kotlin = "1.5.31"
     const val KotlinSerialization = "1.3.0"
+    const val Ktor = "1.6.5"
+    const val Logback = "1.2.6"
 }
 
 plugins {
@@ -24,9 +26,8 @@ plugins {
 group = "com.chesire"
 version = "0.0.1-SNAPSHOT"
 
-val appStart = "com.chesire.orochi.ApplicationKt"
 application {
-    mainClassName = appStart
+    mainClassName = "com.chesire.orochi.ApplicationKt"
 }
 
 repositories {
@@ -37,6 +38,8 @@ repositories {
 
 dependencies {
     implementation("ch.qos.logback:logback-classic:$Logback")
+    implementation("io.insert-koin:koin-core:$Koin")
+    implementation("io.insert-koin:koin-ktor:$Koin")
     implementation("io.ktor:ktor-client-core:$Ktor")
     implementation("io.ktor:ktor-client-jetty:$Ktor")
     implementation("io.ktor:ktor-client-logging:$Ktor")
@@ -47,6 +50,7 @@ dependencies {
     implementation("io.ktor:ktor-server-netty:$Ktor")
     implementation("org.jetbrains.kotlin:kotlin-reflect:$Kotlin")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$KotlinSerialization")
+    testImplementation("io.insert-koin:koin-test:$Koin")
     testImplementation("io.ktor:ktor-server-tests:$Ktor")
     testImplementation("org.jetbrains.kotlin:kotlin-test:$Kotlin")
 }
