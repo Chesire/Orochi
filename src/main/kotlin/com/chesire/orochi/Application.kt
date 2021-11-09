@@ -1,6 +1,5 @@
 package com.chesire.orochi
 
-import com.chesire.orochi.plugins.httpclient.configureHttpClient
 import com.chesire.orochi.plugins.koin.configureKoin
 import com.chesire.orochi.plugins.routing.configureRouting
 import com.chesire.orochi.plugins.serialization.configureSerialization
