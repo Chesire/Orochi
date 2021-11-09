@@ -6,7 +6,7 @@ import io.gitlab.arturbosch.detekt.Detekt
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 object Version {
-    const val Logback = "1.2.1"
+    const val Logback = "1.2.6"
     const val Ktor = "1.5.4"
     const val Kotlin = "1.5.31"
     const val KotlinSerialization = "1.3.0"
