@@ -5,8 +5,8 @@ import io.ktor.client.HttpClient
 import io.ktor.routing.Routing
 import io.ktor.routing.route
 
-fun Routing.kitsu(client: HttpClient) {
+fun Routing.kitsu() {
     route("kitsu/") {
-        kitsuAuth(client)
+        kitsuAuth()
     }
 }

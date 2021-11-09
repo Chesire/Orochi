@@ -13,7 +13,7 @@ class IntegrationStatusTest {
 
     @Test
     fun testStatus() {
-        withTestApplication({ configureRouting(HttpClient()) }) {
+        withTestApplication({ configureRouting() }) {
             handleRequest(HttpMethod.Get, "/status/").apply {
                 assertEquals(HttpStatusCode.OK, response.status())
                 assertEquals("Status ok!", response.content)
