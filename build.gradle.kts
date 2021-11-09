@@ -1,9 +1,16 @@
+import Build_gradle.Version.Kotlin
+import Build_gradle.Version.KotlinSerialization
+import Build_gradle.Version.Ktor
+import Build_gradle.Version.Logback
 import io.gitlab.arturbosch.detekt.Detekt
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-val logbackVersion: String by project
-val ktorVersion: String by project
-val kotlinVersion: String by project
+object Version {
+    const val Logback = "1.2.1"
+    const val Ktor = "1.5.4"
+    const val Kotlin = "1.5.31"
+    const val KotlinSerialization = "1.3.0"
+}
 
 plugins {
     application
@@ -29,19 +36,19 @@ repositories {
 }
 
 dependencies {
-    implementation("ch.qos.logback:logback-classic:$logbackVersion")
-    implementation("io.ktor:ktor-client-core:$ktorVersion")
-    implementation("io.ktor:ktor-client-jetty:$ktorVersion")
-    implementation("io.ktor:ktor-client-logging:$ktorVersion")
-    implementation("io.ktor:ktor-client-serialization:$ktorVersion")
-    implementation("io.ktor:ktor-serialization:$ktorVersion")
-    implementation("io.ktor:ktor-server-core:$ktorVersion")
-    implementation("io.ktor:ktor-server-host-common:$ktorVersion")
-    implementation("io.ktor:ktor-server-netty:$ktorVersion")
-    implementation("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0")
-    testImplementation("io.ktor:ktor-server-tests:$ktorVersion")
-    testImplementation("org.jetbrains.kotlin:kotlin-test:$kotlinVersion")
+    implementation("ch.qos.logback:logback-classic:$Logback")
+    implementation("io.ktor:ktor-client-core:$Ktor")
+    implementation("io.ktor:ktor-client-jetty:$Ktor")
+    implementation("io.ktor:ktor-client-logging:$Ktor")
+    implementation("io.ktor:ktor-client-serialization:$Ktor")
+    implementation("io.ktor:ktor-serialization:$Ktor")
+    implementation("io.ktor:ktor-server-core:$Ktor")
+    implementation("io.ktor:ktor-server-host-common:$Ktor")
+    implementation("io.ktor:ktor-server-netty:$Ktor")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:$Kotlin")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$KotlinSerialization")
+    testImplementation("io.ktor:ktor-server-tests:$Ktor")
+    testImplementation("org.jetbrains.kotlin:kotlin-test:$Kotlin")
 }
 
 tasks {
