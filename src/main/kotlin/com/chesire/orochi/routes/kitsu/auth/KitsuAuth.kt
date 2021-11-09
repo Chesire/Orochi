@@ -17,8 +17,14 @@ import io.ktor.request.receive
 import io.ktor.response.respond
 import io.ktor.routing.Route
 import io.ktor.routing.post
+import org.koin.ktor.ext.inject
 
-fun Route.kitsuAuth(client: HttpClient) {
+/**
+ * Container route for all routes leading to kitsu/auth/.
+ */
+fun Route.kitsuAuth() {
+    val client by inject<HttpClient>()
+
     post("auth/") {
         val input = call.receive<KitsuInputAuthDomain>()
         val response = client.post<HttpResponse>(KitsuEndpoint.OAuth.Token) {
