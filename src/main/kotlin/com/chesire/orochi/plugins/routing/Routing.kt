@@ -1,12 +1,14 @@
 package com.chesire.orochi.plugins.routing
 
-import com.chesire.orochi.plugins.routing.status.status
+import com.chesire.orochi.routes.kitsu.kitsu
+import com.chesire.orochi.routes.status.status
 import io.ktor.application.Application
+import io.ktor.client.HttpClient
 import io.ktor.routing.routing
 
-@Suppress("UnusedPrivateMember")
-fun Application.configureRouting() {
+fun Application.configureRouting(client: HttpClient) {
     routing {
         status()
+        kitsu(client)
     }
 }

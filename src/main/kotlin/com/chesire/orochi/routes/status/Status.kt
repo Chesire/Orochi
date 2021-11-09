@@ -1,4 +1,4 @@
-package com.chesire.orochi.plugins.routing.status
+package com.chesire.orochi.routes.status
 
 import io.ktor.application.call
 import io.ktor.response.respondText
