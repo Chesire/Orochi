@@ -22,3 +22,8 @@ val httpClientModule = module {
         }
     }
 }
+
+/**
+ * Collection of all Koin modules.
+ */
+val defaultModules = listOf(httpClientModule)
