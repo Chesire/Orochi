@@ -10,13 +10,15 @@ plugins {
     kotlin("plugin.serialization") version "1.5.31"
     id("io.gitlab.arturbosch.detekt") version "1.18.0"
     id("org.jlleitschuh.gradle.ktlint") version "10.2.0"
+    id("com.github.johnrengelman.shadow") version "6.1.0"
 }
 
 group = "com.chesire"
 version = "0.0.1-SNAPSHOT"
 
+val appStart = "com.chesire.orochi.ApplicationKt"
 application {
-    mainClassName = "io.ktor.server.netty.EngineMain"
+    mainClassName = appStart
 }
 
 repositories {

@@ -14,8 +14,8 @@ jobs:
       with:
         distribution: 'adopt'
         java-version: 11
-    - name: run assemble
-      run: ./gradlew assemble
+    - name: run shadowJar
+      run: ./gradlew shadowJar
 
   test:
     runs-on: ubuntu-latest
