@@ -19,6 +19,9 @@ import io.ktor.routing.Route
 import io.ktor.routing.post
 import org.koin.ktor.ext.inject
 
+/**
+ * Container route for all routes leading to kitsu/auth/.
+ */
 fun Route.kitsuAuth() {
     val client by inject<HttpClient>()
 
