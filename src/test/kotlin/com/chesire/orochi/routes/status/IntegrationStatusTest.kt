@@ -1,7 +1,6 @@
 package com.chesire.orochi.routes.status
 
-import com.chesire.orochi.plugins.routing.configureRouting
-import io.ktor.client.HttpClient
+import com.chesire.orochi.routes.startRouting
 import io.ktor.http.HttpMethod
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.testing.handleRequest
@@ -13,7 +12,7 @@ class IntegrationStatusTest {
 
     @Test
     fun testStatus() {
-        withTestApplication({ configureRouting() }) {
+        withTestApplication({ startRouting() }) {
             handleRequest(HttpMethod.Get, "/status/").apply {
                 assertEquals(HttpStatusCode.OK, response.status())
                 assertEquals("Status ok!", response.content)
