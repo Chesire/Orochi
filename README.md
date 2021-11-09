@@ -1,8 +1,8 @@
 # Orochi
 
-> TBC
+> Update multiple Anime/Manga trackers at the same time.
   
-Badges
+[![Master](https://github.com/Chesire/Orochi/actions/workflows/master.yml/badge.svg)](https://github.com/Chesire/Orochi/actions/workflows/master.yml)
 
 <!-- If Application
 > Google Play Link
