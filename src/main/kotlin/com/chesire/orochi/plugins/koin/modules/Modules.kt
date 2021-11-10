@@ -20,6 +20,7 @@ val httpClientModule = module {
                 logger = Logger.DEFAULT
                 level = LogLevel.ALL
             }
+            expectSuccess = false
         }
     }
 }
