@@ -1,5 +1,6 @@
 import Build_gradle.Version.Koin
 import Build_gradle.Version.Kotlin
+import Build_gradle.Version.KotlinResult
 import Build_gradle.Version.KotlinSerialization
 import Build_gradle.Version.Ktor
 import Build_gradle.Version.Logback
@@ -9,6 +10,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 object Version {
     const val Koin = "3.1.3"
     const val Kotlin = "1.5.31"
+    const val KotlinResult = "1.1.13"
     const val KotlinSerialization = "1.3.1"
     const val Ktor = "1.6.5"
     const val Logback = "1.2.7"
@@ -38,6 +40,7 @@ repositories {
 
 dependencies {
     implementation("ch.qos.logback:logback-classic:$Logback")
+    implementation("com.michael-bull.kotlin-result:kotlin-result:$KotlinResult")
     implementation("io.insert-koin:koin-core:$Koin")
     implementation("io.insert-koin:koin-ktor:$Koin")
     implementation("io.ktor:ktor-client-core:$Ktor")

@@ -11,6 +11,6 @@ val HttpResponse.isSuccessful: Boolean
         status == HttpStatusCode.Created ||
         status == HttpStatusCode.Accepted
 
-suspend inline fun <reified T> HttpResponse.parseAs(): T {
+suspend inline fun <reified T> HttpResponse.cast(): T {
     return Json.decodeFromString(readText())
 }

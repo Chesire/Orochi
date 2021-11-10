@@ -1,5 +1,6 @@
 package com.chesire.orochi.plugins.koin.modules
 
+import com.chesire.orochi.routes.kitsu.auth.KitsuAuthService
 import io.ktor.client.HttpClient
 import io.ktor.client.features.json.JsonFeature
 import io.ktor.client.features.logging.DEFAULT
@@ -24,6 +25,18 @@ val httpClientModule = module {
 }
 
 /**
+ * Provides instances for the Kitsu auth package.
+ */
+val kitsuAuthModule = module {
+    single {
+        KitsuAuthService(get())
+    }
+}
+
+/**
  * Collection of all Koin modules.
  */
-val defaultModules = listOf(httpClientModule)
+val defaultModules = listOf(
+    httpClientModule,
+    kitsuAuthModule
+)
