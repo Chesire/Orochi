@@ -1,6 +1,5 @@
 package com.chesire.orochi.routes.kitsu.auth
 
-import com.chesire.orochi.routes.ErrorDomain
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import io.ktor.application.call
@@ -24,13 +23,13 @@ fun Route.kitsuAuth() {
             .onSuccess {
                 call.respond(
                     it.status,
-                    KitsuOutputAuthDomain(it.model.accessToken)
+                    service.createKitsuOutputAuthDomain(it.model)
                 )
             }
             .onFailure {
                 call.respond(
                     it.status,
-                    ErrorDomain(it.model.error, it.model.errorDescription)
+                    service.createErrorDomain(it.model)
                 )
             }
     }
