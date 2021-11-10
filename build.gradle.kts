@@ -4,6 +4,7 @@ import Build_gradle.Version.KotlinResult
 import Build_gradle.Version.KotlinSerialization
 import Build_gradle.Version.Ktor
 import Build_gradle.Version.Logback
+import Build_gradle.Version.Mockk
 import io.gitlab.arturbosch.detekt.Detekt
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -14,6 +15,7 @@ object Version {
     const val KotlinSerialization = "1.3.1"
     const val Ktor = "1.6.5"
     const val Logback = "1.2.7"
+    const val Mockk = "1.12.0"
 }
 
 plugins {
@@ -55,6 +57,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$KotlinSerialization")
     testImplementation("io.insert-koin:koin-test:$Koin")
     testImplementation("io.ktor:ktor-server-tests:$Ktor")
+    testImplementation("io.mockk:mockk:$Mockk")
     testImplementation("org.jetbrains.kotlin:kotlin-test:$Kotlin")
 }
 

@@ -50,6 +50,4 @@ class KitsuAuthService(private val client: HttpClient) {
      * Creates an instance of [ErrorDomain] from a [KitsuAuthFailureDto].
      */
     fun createErrorDomain(errorDto: KitsuAuthFailureDto) = ErrorDomain(errorDto.error, errorDto.errorDescription)
-
 }
-
