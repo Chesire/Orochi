@@ -8,18 +8,15 @@ import io.ktor.client.features.logging.DEFAULT
 import io.ktor.client.features.logging.LogLevel
 import io.ktor.client.features.logging.Logger
 import io.ktor.client.features.logging.Logging
+import io.ktor.http.ContentType
 import io.ktor.http.Headers
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.headersOf
 
-data class MockRequest(
-    val requestEncodedPath: String,
-    val responseJson: String,
-    val responseStatusCode: HttpStatusCode,
-    val responseHeaders: Headers = headersOf(HttpHeaders.ContentType, "application/json")
-)
-
+/**
+ * Sets up an instance of [HttpClient] that uses a [MockEngine].
+ */
 fun setupMockedHttpClient(vararg mockedRequests: MockRequest): HttpClient {
     // We have to use this for unit tests as well, because we cannot mockk the reified `request` and `post` functions.
     return HttpClient(MockEngine) {
@@ -44,3 +41,13 @@ fun setupMockedHttpClient(vararg mockedRequests: MockRequest): HttpClient {
         }
     }
 }
+
+/**
+ * Request data to mock on the [MockEngine], to be used with [setupMockedHttpClient].
+ */
+data class MockRequest(
+    val requestEncodedPath: String,
+    val responseJson: String,
+    val responseStatusCode: HttpStatusCode,
+    val responseHeaders: Headers = headersOf(HttpHeaders.ContentType, ContentType.Application.Json.toString())
+)

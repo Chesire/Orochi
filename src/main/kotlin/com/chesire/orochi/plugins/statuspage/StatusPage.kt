@@ -8,6 +8,9 @@ import io.ktor.features.StatusPages
 import io.ktor.http.HttpStatusCode
 import io.ktor.response.respond
 
+/**
+ * Installs and configures the [StatusPages] plugin.
+ */
 fun Application.configureStatusPages() {
     install(StatusPages) {
         exception<Throwable> { cause ->
