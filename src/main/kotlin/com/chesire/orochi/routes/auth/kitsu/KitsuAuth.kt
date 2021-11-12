@@ -10,7 +10,7 @@ import io.ktor.routing.post
 import org.koin.ktor.ext.inject
 
 /**
- * Container route for all routes leading to kitsu/auth/.
+ * Container route for all routes leading to auth/kitsu/.
  */
 fun Route.kitsuAuth() {
     val service by inject<KitsuAuthService>()
