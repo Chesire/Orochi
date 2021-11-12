@@ -1,4 +1,4 @@
-package com.chesire.orochi.routes.kitsu.auth
+package com.chesire.orochi.routes.auth.kitsu
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

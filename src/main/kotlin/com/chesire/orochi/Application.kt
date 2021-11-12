@@ -2,6 +2,7 @@ package com.chesire.orochi
 
 import com.chesire.orochi.plugins.koin.configureKoin
 import com.chesire.orochi.plugins.serialization.configureSerialization
+import com.chesire.orochi.plugins.statuspage.configureStatusPages
 import com.chesire.orochi.routes.startRouting
 import io.ktor.application.Application
 
@@ -17,6 +18,7 @@ fun main(args: Array<String>) = io.ktor.server.netty.EngineMain.main(args)
 @Suppress("unused")
 fun Application.module() {
     configureKoin()
+    configureStatusPages()
     configureSerialization()
     startRouting()
 }

@@ -6,7 +6,7 @@ import io.ktor.application.install
 import org.koin.ktor.ext.Koin
 
 /**
- * Configures the [Koin] plugin.
+ * Installs and configures the [Koin] plugin.
  */
 fun Application.configureKoin() {
     install(Koin) {
