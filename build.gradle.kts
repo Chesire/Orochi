@@ -55,7 +55,9 @@ dependencies {
     implementation("io.ktor:ktor-server-netty:$Ktor")
     implementation("org.jetbrains.kotlin:kotlin-reflect:$Kotlin")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$KotlinSerialization")
+
     testImplementation("io.insert-koin:koin-test:$Koin")
+    testImplementation("io.insert-koin:koin-test-junit4:$Koin")
     testImplementation("io.ktor:ktor-client-mock:$Ktor")
     testImplementation("io.ktor:ktor-server-tests:$Ktor")
     testImplementation("io.mockk:mockk:$Mockk")
