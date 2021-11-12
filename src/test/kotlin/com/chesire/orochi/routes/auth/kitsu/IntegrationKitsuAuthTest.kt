@@ -2,8 +2,11 @@ package com.chesire.orochi.routes.auth.kitsu
 
 import com.chesire.orochi.plugins.koin.modules.defaultModules
 import com.chesire.orochi.plugins.serialization.configureSerialization
+import com.chesire.orochi.plugins.statuspage.configureStatusPages
+import com.chesire.orochi.routes.ErrorDomain
 import com.chesire.orochi.routes.startRouting
 import com.chesire.orochi.util.MockRequest
+import com.chesire.orochi.util.kitsuAuthFailureDto
 import com.chesire.orochi.util.kitsuAuthSuccessDto
 import com.chesire.orochi.util.kitsuInputAuthDomain
 import com.chesire.orochi.util.setupMockedHttpClient
@@ -15,6 +18,7 @@ import io.ktor.server.testing.setBody
 import io.ktor.server.testing.withTestApplication
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -24,12 +28,7 @@ import org.koin.test.KoinTestRule
 import org.koin.test.mock.declare
 
 class IntegrationKitsuAuthTest : KoinTest {
-    /* TODO
-        Write some integration tests here, need to:
-        - Send bad credentials - get bad response
-        - Send invalid (wrong typed) credentials - handle gracefully
-        - Receive invalid data from api - handle gracefully
-    */
+    
     @get:Rule
     val koinTestRule = KoinTestRule.create {
         modules(
@@ -51,6 +50,7 @@ class IntegrationKitsuAuthTest : KoinTest {
 
         withTestApplication({
             configureSerialization()
+            configureStatusPages()
             startRouting()
         }) {
             handleRequest(HttpMethod.Post, "/auth/kitsu/") {
@@ -62,6 +62,99 @@ class IntegrationKitsuAuthTest : KoinTest {
 
                 assertEquals(HttpStatusCode.OK, response.status())
                 assertEquals(kitsuAuthSuccessDto.accessToken, output.accessToken)
+            }
+        }
+    }
+
+    @Test
+    fun `route auth-kitsu, on bad credentials, returns the ErrorDomain`() {
+        declare {
+            setupMockedHttpClient(
+                MockRequest(
+                    "/api/oauth/token",
+                    Json.encodeToString(kitsuAuthFailureDto),
+                    HttpStatusCode.BadRequest
+                )
+            )
+        }
+
+        withTestApplication({
+            configureSerialization()
+            configureStatusPages()
+            startRouting()
+        }) {
+            handleRequest(HttpMethod.Post, "/auth/kitsu/") {
+                addHeader("Content-Type", ContentType.Application.Json.toString())
+                setBody(Json.encodeToString(kitsuInputAuthDomain.copy(password = "wrong")))
+            }.apply {
+                val content = checkNotNull(response.content)
+                val output = Json.decodeFromString<ErrorDomain>(content)
+
+                assertEquals(HttpStatusCode.BadRequest, response.status())
+                assertEquals(kitsuAuthFailureDto.error, output.error)
+                assertEquals(kitsuAuthFailureDto.errorDescription, output.errorDescription)
+            }
+        }
+    }
+
+    @Test
+    fun `route auth-kitsu, on invalid input data, returns the ErrorDomain`() {
+        declare {
+            setupMockedHttpClient(
+                MockRequest(
+                    "/api/oauth/token",
+                    Json.encodeToString(kitsuAuthSuccessDto),
+                    HttpStatusCode.OK
+                )
+            )
+        }
+
+        withTestApplication({
+            configureSerialization()
+            configureStatusPages()
+            startRouting()
+        }) {
+            handleRequest(HttpMethod.Post, "/auth/kitsu/") {
+                addHeader("Content-Type", ContentType.Application.Json.toString())
+                setBody("""{"username":"Orochi"}""")
+            }.apply {
+                val content = checkNotNull(response.content)
+                val output = Json.decodeFromString<ErrorDomain>(content)
+
+                assertEquals(HttpStatusCode.InternalServerError, response.status())
+                assertEquals("internal error", output.error)
+                assertTrue { output.errorDescription.contains("Unknown error has occurred") }
+            }
+        }
+    }
+
+    @Test
+    fun `route auth-kitsu, on invalid api return data, returns the ErrorDomain`() {
+        declare {
+            setupMockedHttpClient(
+                MockRequest(
+                    "/api/oauth/token",
+                    """{"error": "5", "invalid":"invalid"}""",
+                    HttpStatusCode.BadRequest
+                )
+            )
+        }
+
+        withTestApplication({
+            configureSerialization()
+            configureStatusPages()
+            startRouting()
+        }) {
+            handleRequest(HttpMethod.Post, "/auth/kitsu/") {
+                addHeader("Content-Type", ContentType.Application.Json.toString())
+                setBody(Json.encodeToString(kitsuInputAuthDomain.copy(password = "wrong")))
+            }.apply {
+                val content = checkNotNull(response.content)
+                val output = Json.decodeFromString<ErrorDomain>(content)
+
+                assertEquals(HttpStatusCode.InternalServerError, response.status())
+                assertEquals("internal error", output.error)
+                assertTrue { output.errorDescription.contains("Unknown error has occurred") }
             }
         }
     }
