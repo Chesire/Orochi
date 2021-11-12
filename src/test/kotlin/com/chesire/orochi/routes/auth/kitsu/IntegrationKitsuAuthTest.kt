@@ -4,6 +4,8 @@ import com.chesire.orochi.plugins.koin.modules.defaultModules
 import com.chesire.orochi.plugins.serialization.configureSerialization
 import com.chesire.orochi.routes.startRouting
 import com.chesire.orochi.util.MockRequest
+import com.chesire.orochi.util.kitsuAuthSuccessDto
+import com.chesire.orochi.util.kitsuInputAuthDomain
 import com.chesire.orochi.util.setupMockedHttpClient
 import io.ktor.http.ContentType
 import io.ktor.http.HttpMethod
@@ -24,7 +26,6 @@ import org.koin.test.mock.declare
 class IntegrationKitsuAuthTest : KoinTest {
     /* TODO
         Write some integration tests here, need to:
-        - Send good credentials - get good response
         - Send bad credentials - get bad response
         - Send invalid (wrong typed) credentials - handle gracefully
         - Receive invalid data from api - handle gracefully
@@ -42,7 +43,7 @@ class IntegrationKitsuAuthTest : KoinTest {
             setupMockedHttpClient(
                 MockRequest(
                     "/api/oauth/token",
-                    ValidRequestJson,
+                    Json.encodeToString(kitsuAuthSuccessDto),
                     HttpStatusCode.OK
                 )
             )
@@ -54,23 +55,14 @@ class IntegrationKitsuAuthTest : KoinTest {
         }) {
             handleRequest(HttpMethod.Post, "/auth/kitsu/") {
                 addHeader("Content-Type", ContentType.Application.Json.toString())
-                setBody(
-                    Json.encodeToString(
-                        KitsuInputAuthDomain(
-                            username = "OrochiTest",
-                            password = "foobar"
-                        )
-                    )
-                )
+                setBody(Json.encodeToString(kitsuInputAuthDomain))
             }.apply {
-                val output = Json.decodeFromString<KitsuOutputAuthDomain>(response.content!!)
+                val content = checkNotNull(response.content)
+                val output = Json.decodeFromString<KitsuOutputAuthDomain>(content)
 
                 assertEquals(HttpStatusCode.OK, response.status())
-                assertEquals("accessToken", output.accessToken)
+                assertEquals(kitsuAuthSuccessDto.accessToken, output.accessToken)
             }
         }
     }
 }
-
-private const val ValidRequestJson =
-    """{"access_token":"accessToken","token_type":"Bearer","expires_in":423082,"refresh_token":"refreshToken","scope":"public","created_at":1634401310}"""

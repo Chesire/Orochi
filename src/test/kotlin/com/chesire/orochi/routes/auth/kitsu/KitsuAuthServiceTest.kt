@@ -1,8 +1,8 @@
 package com.chesire.orochi.routes.auth.kitsu
 
-import com.chesire.orochi.api.kitsu.model.KitsuAuthFailureDto
-import com.chesire.orochi.api.kitsu.model.KitsuAuthSuccessDto
 import com.chesire.orochi.util.MockRequest
+import com.chesire.orochi.util.kitsuAuthFailureDto
+import com.chesire.orochi.util.kitsuAuthSuccessDto
 import com.chesire.orochi.util.setupMockedHttpClient
 import com.github.michaelbull.result.get
 import com.github.michaelbull.result.getError
@@ -11,6 +11,8 @@ import io.mockk.mockk
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlinx.coroutines.runBlocking
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 class KitsuAuthServiceTest {
 
@@ -20,7 +22,7 @@ class KitsuAuthServiceTest {
         val httpClient = setupMockedHttpClient(
             MockRequest(
                 "/api/oauth/token",
-                ValidRequestJson,
+                Json.encodeToString(kitsuAuthSuccessDto),
                 expectedCode
             )
         )
@@ -38,7 +40,7 @@ class KitsuAuthServiceTest {
         val httpClient = setupMockedHttpClient(
             MockRequest(
                 "/api/oauth/token",
-                InvalidRequestJson,
+                Json.encodeToString(kitsuAuthFailureDto),
                 expectedCode
             )
         )
@@ -67,28 +69,5 @@ class KitsuAuthServiceTest {
 
         assertEquals(dto.error, result.error)
         assertEquals(dto.errorDescription, result.errorDescription)
-    }
-
-    companion object {
-        private const val ValidRequestJson =
-            """{"access_token":"accessToken","token_type":"Bearer","expires_in":423082,"refresh_token":"refreshToken","scope":"public","created_at":1634401310}"""
-        private const val InvalidRequestJson =
-            """{"error": "invalid_grant", "error_description": "The provided authorization grant is invalid, expired, revoked, does not match the redirection URI used in the authorization request, or was issued to another client."}"""
-
-        private val kitsuAuthSuccessDto: KitsuAuthSuccessDto
-            get() = KitsuAuthSuccessDto(
-                accessToken = "accessToken",
-                tokenType = "tokenType",
-                expiresIn = 20L,
-                refreshToken = "refreshToken",
-                scope = "scope",
-                createdAt = 1L
-            )
-
-        private val kitsuAuthFailureDto: KitsuAuthFailureDto
-            get() = KitsuAuthFailureDto(
-                error = "error",
-                errorDescription = "error_description"
-            )
     }
 }
