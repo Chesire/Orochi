@@ -1,4 +1,4 @@
-package com.chesire.orochi.routes.kitsu.auth
+package com.chesire.orochi.routes.auth.kitsu
 
 import com.chesire.orochi.api.kitsu.model.KitsuAuthFailureDto
 import com.chesire.orochi.api.kitsu.model.KitsuAuthSuccessDto

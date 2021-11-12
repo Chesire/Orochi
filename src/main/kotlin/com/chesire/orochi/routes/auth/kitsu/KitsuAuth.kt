@@ -1,4 +1,4 @@
-package com.chesire.orochi.routes.kitsu.auth
+package com.chesire.orochi.routes.auth.kitsu
 
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
@@ -15,7 +15,7 @@ import org.koin.ktor.ext.inject
 fun Route.kitsuAuth() {
     val service by inject<KitsuAuthService>()
 
-    post("auth/") {
+    post("kitsu/") {
         val input = call.receive<KitsuInputAuthDomain>()
         val result = service.requestAuthToken(input.username, input.password)
 

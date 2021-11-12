@@ -1,6 +1,6 @@
 package com.chesire.orochi.plugins.koin.modules
 
-import com.chesire.orochi.routes.kitsu.auth.KitsuAuthService
+import com.chesire.orochi.routes.auth.kitsu.KitsuAuthService
 import io.ktor.client.HttpClient
 import io.ktor.client.features.json.JsonFeature
 import io.ktor.client.features.logging.DEFAULT
