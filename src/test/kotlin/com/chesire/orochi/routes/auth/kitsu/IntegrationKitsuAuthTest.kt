@@ -1,21 +1,18 @@
 package com.chesire.orochi.routes.auth.kitsu
 
 import com.chesire.orochi.plugins.koin.modules.defaultModules
-import com.chesire.orochi.plugins.serialization.configureSerialization
-import com.chesire.orochi.plugins.statuspage.configureStatusPages
 import com.chesire.orochi.routes.ErrorDomain
-import com.chesire.orochi.routes.startRouting
 import com.chesire.orochi.util.MockRequest
 import com.chesire.orochi.util.kitsuAuthFailureDto
 import com.chesire.orochi.util.kitsuAuthSuccessDto
 import com.chesire.orochi.util.kitsuInputAuthDomain
 import com.chesire.orochi.util.setupMockedHttpClient
+import com.chesire.orochi.util.withOrochiTestApp
 import io.ktor.http.ContentType
 import io.ktor.http.HttpMethod
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.testing.handleRequest
 import io.ktor.server.testing.setBody
-import io.ktor.server.testing.withTestApplication
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -28,7 +25,7 @@ import org.koin.test.KoinTestRule
 import org.koin.test.mock.declare
 
 class IntegrationKitsuAuthTest : KoinTest {
-    
+
     @get:Rule
     val koinTestRule = KoinTestRule.create {
         modules(
@@ -48,11 +45,7 @@ class IntegrationKitsuAuthTest : KoinTest {
             )
         }
 
-        withTestApplication({
-            configureSerialization()
-            configureStatusPages()
-            startRouting()
-        }) {
+        withOrochiTestApp {
             handleRequest(HttpMethod.Post, "/auth/kitsu/") {
                 addHeader("Content-Type", ContentType.Application.Json.toString())
                 setBody(Json.encodeToString(kitsuInputAuthDomain))
@@ -78,11 +71,7 @@ class IntegrationKitsuAuthTest : KoinTest {
             )
         }
 
-        withTestApplication({
-            configureSerialization()
-            configureStatusPages()
-            startRouting()
-        }) {
+        withOrochiTestApp {
             handleRequest(HttpMethod.Post, "/auth/kitsu/") {
                 addHeader("Content-Type", ContentType.Application.Json.toString())
                 setBody(Json.encodeToString(kitsuInputAuthDomain.copy(password = "wrong")))
@@ -109,11 +98,7 @@ class IntegrationKitsuAuthTest : KoinTest {
             )
         }
 
-        withTestApplication({
-            configureSerialization()
-            configureStatusPages()
-            startRouting()
-        }) {
+        withOrochiTestApp {
             handleRequest(HttpMethod.Post, "/auth/kitsu/") {
                 addHeader("Content-Type", ContentType.Application.Json.toString())
                 setBody("""{"username":"Orochi"}""")
@@ -140,11 +125,7 @@ class IntegrationKitsuAuthTest : KoinTest {
             )
         }
 
-        withTestApplication({
-            configureSerialization()
-            configureStatusPages()
-            startRouting()
-        }) {
+        withOrochiTestApp {
             handleRequest(HttpMethod.Post, "/auth/kitsu/") {
                 addHeader("Content-Type", ContentType.Application.Json.toString())
                 setBody(Json.encodeToString(kitsuInputAuthDomain.copy(password = "wrong")))
