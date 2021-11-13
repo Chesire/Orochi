@@ -1,10 +1,10 @@
 package com.chesire.orochi.ext
 
+import com.chesire.orochi.plugins.serialization.Kson
 import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.readText
 import io.ktor.http.HttpStatusCode
 import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.Json
 
 /**
  * Checks if this [HttpResponse] was a success status code.
@@ -18,5 +18,5 @@ val HttpResponse.isSuccessful: Boolean
  * Attempts to cast the content within this [HttpResponse] into an instance of [T].
  */
 suspend inline fun <reified T> HttpResponse.cast(): T {
-    return Json.decodeFromString(readText())
+    return Kson.decodeFromString(readText())
 }
