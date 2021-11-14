@@ -36,6 +36,36 @@ class KitsuSeriesService(private val client: HttpClient) {
             accept(ContentType.parse("application/vnd.api+json"))
         }
 
+        /*
+        private fun buildAnimeRequest(offset: Int): String {
+            // can probably optimize this
+            return buildString {
+                append(String.format(KitsuEndpoint.User.LibraryEntries, userId))
+                append("?include=anime")
+                append("&fields[libraryEntries]=status,progress,anime,startedAt,finishedAt,ratingTwenty")
+                append("&fields[anime]=slug,canonicalTitle,startDate,endDate,subtype,status,posterImage,episodeCount")
+                append("&filter[kind]=anime")
+                append("&sort=anime.titles.canonical")
+                append("&page[offset]=$offset") // TODO: Handle correct value here
+                append("&page[limit]=500")
+            }
+        }
+
+        var offset = 0
+        var hasMore = true
+        while (hasMore) {
+            val request = buildAnimeRequest(offset)
+            val result = sendLibraryRequest(request)
+            // TODO: Combine the models
+            val models = response.cast()
+            currentModels += models
+            // TODO: Combine the models
+            if (result.hasMore) { offset += 500 }
+            hasMore = result.hasMore
+        }
+        return below with the models
+         */
+
         // TODO: Cycle over the remaining items till we get them all
         // TODO: Parse to correct model
         return if (response.isSuccessful) {
