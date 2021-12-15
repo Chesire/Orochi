@@ -24,7 +24,7 @@ plugins {
     kotlin("plugin.serialization") version "1.6.0"
     id("io.gitlab.arturbosch.detekt") version "1.18.1"
     id("org.jlleitschuh.gradle.ktlint") version "10.2.0"
-    id("com.github.johnrengelman.shadow") version "7.1.0"
+    id("com.github.johnrengelman.shadow") version "7.1.1"
 }
 
 group = "com.chesire"
