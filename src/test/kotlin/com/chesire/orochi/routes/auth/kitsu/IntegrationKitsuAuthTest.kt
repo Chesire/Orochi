@@ -20,11 +20,11 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.junit.Rule
-import org.koin.test.KoinTest
+import org.koin.test.AutoCloseKoinTest
 import org.koin.test.KoinTestRule
 import org.koin.test.mock.declare
 
-class IntegrationKitsuAuthTest : KoinTest {
+class IntegrationKitsuAuthTest : AutoCloseKoinTest() {
 
     @get:Rule
     val koinTestRule = KoinTestRule.create {

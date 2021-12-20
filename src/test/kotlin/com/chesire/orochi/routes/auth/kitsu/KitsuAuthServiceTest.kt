@@ -13,8 +13,9 @@ import kotlin.test.assertEquals
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import org.koin.test.AutoCloseKoinTest
 
-class KitsuAuthServiceTest {
+class KitsuAuthServiceTest : AutoCloseKoinTest() {
 
     @Test
     fun `requestAuthToken, on success, returns ResponseDomain with KitsuAuthSuccessDto`() = runBlocking {
