@@ -20,7 +20,7 @@ object Version {
 
 plugins {
     application
-    kotlin("jvm") version "1.5.31"
+    kotlin("jvm") version "1.6.10"
     kotlin("plugin.serialization") version "1.6.10"
     id("io.gitlab.arturbosch.detekt") version "1.18.1"
     id("org.jlleitschuh.gradle.ktlint") version "10.2.0"
