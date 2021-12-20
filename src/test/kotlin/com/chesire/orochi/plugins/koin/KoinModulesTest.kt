@@ -9,6 +9,6 @@ class KoinModulesTest : KoinTest {
 
     @Test
     fun `verify Koin modules`() {
-        checkKoinModules(defaultModules)
+        checkKoinModules { defaultModules }
     }
 }
