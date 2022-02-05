@@ -23,7 +23,7 @@ plugins {
     kotlin("jvm") version "1.6.10"
     kotlin("plugin.serialization") version "1.6.10"
     id("io.gitlab.arturbosch.detekt") version "1.19.0"
-    id("org.jlleitschuh.gradle.ktlint") version "10.2.0"
+    id("org.jlleitschuh.gradle.ktlint") version "10.2.1"
     id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
