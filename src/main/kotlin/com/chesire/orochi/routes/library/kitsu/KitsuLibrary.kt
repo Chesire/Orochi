@@ -1,6 +1,7 @@
 package com.chesire.orochi.routes.library.kitsu
 
-import com.chesire.orochi.ext.kitsuAuthHeader
+import com.chesire.orochi.ext.kitsuBearerToken
+import com.chesire.orochi.ext.kitsuUserId
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import io.ktor.application.call
@@ -15,7 +16,7 @@ fun Route.kitsuLibrary() {
     val service by inject<KitsuLibraryService>()
 
     get("kitsu/") {
-        service.retrieveLibrary(call.request.kitsuAuthHeader)
+        service.retrieveLibrary(call.request.kitsuBearerToken, call.request.kitsuUserId)
             .onSuccess {
                 // Parse into useful data and return?
             }

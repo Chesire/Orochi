@@ -1,6 +1,7 @@
 package com.chesire.orochi.routes.library.kitsu
 
 import com.chesire.orochi.api.kitsu.KitsuEndpoint
+import com.chesire.orochi.common.Headers
 import com.chesire.orochi.ext.isSuccessful
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
@@ -18,19 +19,32 @@ import io.ktor.http.contentType
  */
 class KitsuLibraryService(private val client: HttpClient) {
 
-    suspend fun retrieveLibrary(authHeader: String?): Result<Unit, Unit> {
-        // TODO: Introduce builder for the URL, since we need various filters such as userId
-        val response = client.get<HttpResponse>(KitsuEndpoint.Library.Entries) {
-            accept(ContentType.Application.Json) // application/vnd.api+json
-            contentType(ContentType.Application.Json) // application/vnd.api+json
-            header("Authorization", "Bearer $authHeader") // Get this from somewhere else
-        }
-
-        return if (response.isSuccessful) {
-            Ok(Unit)
-        } else {
+    suspend fun retrieveLibrary(
+        bearerToken: String?,
+        userId: String?
+    ): Result<Unit, Unit> {
+        return if (bearerToken == null) {
             Err(Unit)
+        } else if (userId == null) {
+            Err(Unit)
+        } else {
+            // TODO: Introduce builder for the URL, since we need various filters such as userId
+            val response = client.get<HttpResponse>(buildKitsuUrl(userId)) {
+                accept(ContentType.parse(Headers.VND_API_JSON))
+                contentType(ContentType.parse(Headers.VND_API_JSON))
+                header(Headers.AUTHORIZATION, "Bearer $bearerToken")
+            }
+
+            if (response.isSuccessful) {
+                Ok(Unit)
+            } else {
+                Err(Unit)
+            }
         }
+    }
+
+    private fun buildKitsuUrl(userId: String): String {
+        return "${KitsuEndpoint.Library.Entries}/filter[userId]=$userId"
     }
 }
 
