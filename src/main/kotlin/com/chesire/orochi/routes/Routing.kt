@@ -1,6 +1,7 @@
 package com.chesire.orochi.routes
 
 import com.chesire.orochi.routes.auth.auth
+import com.chesire.orochi.routes.library.library
 import com.chesire.orochi.routes.status.status
 import io.ktor.application.Application
 import io.ktor.routing.routing
@@ -12,5 +13,6 @@ fun Application.startRouting() {
     routing {
         status()
         auth()
+        library()
     }
 }
