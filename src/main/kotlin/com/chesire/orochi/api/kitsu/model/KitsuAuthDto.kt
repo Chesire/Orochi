@@ -28,11 +28,3 @@ data class KitsuAuthSuccessDto(
     @SerialName("created_at")
     val createdAt: Long
 )
-
-@Serializable
-data class KitsuAuthFailureDto(
-    @SerialName("error")
-    val error: String,
-    @SerialName("error_description")
-    val errorDescription: String
-)

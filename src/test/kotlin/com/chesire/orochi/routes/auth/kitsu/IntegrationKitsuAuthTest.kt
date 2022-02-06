@@ -3,8 +3,8 @@ package com.chesire.orochi.routes.auth.kitsu
 import com.chesire.orochi.plugins.koin.modules.defaultModules
 import com.chesire.orochi.routes.ErrorDomain
 import com.chesire.orochi.util.MockRequest
-import com.chesire.orochi.util.kitsuAuthFailureDto
 import com.chesire.orochi.util.kitsuAuthSuccessDto
+import com.chesire.orochi.util.kitsuErrorDto
 import com.chesire.orochi.util.kitsuInputAuthDomain
 import com.chesire.orochi.util.setupMockedHttpClient
 import com.chesire.orochi.util.withOrochiTestApp
@@ -65,7 +65,7 @@ class IntegrationKitsuAuthTest : AutoCloseKoinTest() {
             setupMockedHttpClient(
                 MockRequest(
                     "/api/oauth/token",
-                    Json.encodeToString(kitsuAuthFailureDto),
+                    Json.encodeToString(kitsuErrorDto),
                     HttpStatusCode.BadRequest
                 )
             )
@@ -80,8 +80,8 @@ class IntegrationKitsuAuthTest : AutoCloseKoinTest() {
                 val output = Json.decodeFromString<ErrorDomain>(content)
 
                 assertEquals(HttpStatusCode.BadRequest, response.status())
-                assertEquals(kitsuAuthFailureDto.error, output.error)
-                assertEquals(kitsuAuthFailureDto.errorDescription, output.errorDescription)
+                assertEquals(kitsuErrorDto.error, output.error)
+                assertEquals(kitsuErrorDto.errorDescription, output.errorDescription)
             }
         }
     }

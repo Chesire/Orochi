@@ -1,9 +1,9 @@
 package com.chesire.orochi.routes.auth.kitsu
 
 import com.chesire.orochi.api.kitsu.KitsuEndpoint
-import com.chesire.orochi.api.kitsu.model.KitsuAuthFailureDto
 import com.chesire.orochi.api.kitsu.model.KitsuAuthRequestDto
 import com.chesire.orochi.api.kitsu.model.KitsuAuthSuccessDto
+import com.chesire.orochi.api.kitsu.model.KitsuErrorDto
 import com.chesire.orochi.ext.cast
 import com.chesire.orochi.ext.isSuccessful
 import com.chesire.orochi.routes.ErrorDomain
@@ -28,7 +28,7 @@ class KitsuAuthService(private val client: HttpClient) {
     suspend fun requestAuthToken(
         username: String,
         password: String
-    ): Result<ResponseDomain<KitsuAuthSuccessDto>, ResponseDomain<KitsuAuthFailureDto>> {
+    ): Result<ResponseDomain<KitsuAuthSuccessDto>, ResponseDomain<KitsuErrorDto>> {
         val response = client.post<HttpResponse>(KitsuEndpoint.OAuth.Token) {
             contentType(ContentType.Application.Json)
             body = KitsuAuthRequestDto(grantType = "password", username = username, password = password)
@@ -47,7 +47,7 @@ class KitsuAuthService(private val client: HttpClient) {
     fun createKitsuOutputAuthDomain(successDto: KitsuAuthSuccessDto) = KitsuOutputAuthDomain(successDto.accessToken)
 
     /**
-     * Creates an instance of [ErrorDomain] from a [KitsuAuthFailureDto].
+     * Creates an instance of [ErrorDomain] from a [KitsuErrorDto].
      */
-    fun createErrorDomain(errorDto: KitsuAuthFailureDto) = ErrorDomain(errorDto.error, errorDto.errorDescription)
+    fun createErrorDomain(errorDto: KitsuErrorDto) = ErrorDomain(errorDto.error, errorDto.errorDescription)
 }
