@@ -47,20 +47,3 @@ class KitsuLibraryService(private val client: HttpClient) {
         return "${KitsuEndpoint.Library.Entries}/filter[userId]=$userId"
     }
 }
-
-/*
-Kitsu error object
-{
-  error: 'invalid_request',
-  error_description: '<reason_why>'
-}
-
-Kitsu error codes
-Error	Status	Explanation
-invalid_request	400	The request is missing a parameter, uses an unsupported parameter or repeats a parameter.
-invalid_client	401	The request contains an invalid client ID or secret.
-invalid_grant	400	The authorization code (or password with the password grant) is invalid or expired.
-invalid_scope	400	The request contains an invalid scope (password or client credential grants).
-unauthorized_client	400	The client is not authorized to use the requested grant type.
-unsupported_grant_type	400	The grant type requested is not recognized by the server.
- */
