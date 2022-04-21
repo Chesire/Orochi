@@ -11,7 +11,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 object Version {
     const val Koin = "3.1.6"
     const val Kotlin = "1.6.20"
-    const val KotlinResult = "1.1.14"
+    const val KotlinResult = "1.1.16"
     const val KotlinSerialization = "1.3.2"
     const val Ktor = "1.6.8"
     const val Logback = "1.2.11"
