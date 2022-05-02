@@ -13,7 +13,7 @@ object Version {
     const val Kotlin = "1.6.21"
     const val KotlinResult = "1.1.16"
     const val KotlinSerialization = "1.3.2"
-    const val Ktor = "1.6.8"
+    const val Ktor = "2.0.1"
     const val Logback = "1.2.11"
     const val Mockk = "1.12.3"
 }
