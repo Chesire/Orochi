@@ -9,7 +9,7 @@ import io.gitlab.arturbosch.detekt.Detekt
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 object Version {
-    const val Koin = "3.1.6"
+    const val Koin = "3.2.0"
     const val Kotlin = "1.6.21"
     const val KotlinResult = "1.1.16"
     const val KotlinSerialization = "1.3.2"
