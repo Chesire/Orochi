@@ -15,7 +15,7 @@ object Version {
     const val KotlinSerialization = "1.3.2"
     const val Ktor = "1.6.8"
     const val Logback = "1.2.11"
-    const val Mockk = "1.12.3"
+    const val Mockk = "1.13.3"
 }
 
 plugins {
